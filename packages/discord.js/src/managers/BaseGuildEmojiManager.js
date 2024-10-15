@@ -2,6 +2,7 @@
 
 const CachedManager = require('./CachedManager');
 const ApplicationEmoji = require('../structures/ApplicationEmoji');
+const DefaultReactionEmoji = require('../structures/DefaultReactionEmoji');
 const GuildEmoji = require('../structures/GuildEmoji');
 const ReactionEmoji = require('../structures/ReactionEmoji');
 const { parseEmoji } = require('../util/Util');
@@ -27,7 +28,7 @@ class BaseGuildEmojiManager extends CachedManager {
    * * A GuildEmoji object
    * * A ReactionEmoji object
    * * An ApplicationEmoji object
-   * @typedef {Snowflake|GuildEmoji|ReactionEmoji|ApplicationEmoji} EmojiResolvable
+   * @typedef {Snowflake|GuildEmoji|ReactionEmoji|ApplicationEmoji|DefaultReactionEmoji} EmojiResolvable
    */
 
   /**
@@ -38,6 +39,7 @@ class BaseGuildEmojiManager extends CachedManager {
   resolve(emoji) {
     if (emoji instanceof ReactionEmoji) return super.resolve(emoji.id);
     if (emoji instanceof ApplicationEmoji) return super.resolve(emoji.id);
+    if (emoji instanceof DefaultReactionEmoji) return super.resolve(emoji.id);
     return super.resolve(emoji);
   }
 
@@ -49,6 +51,7 @@ class BaseGuildEmojiManager extends CachedManager {
   resolveId(emoji) {
     if (emoji instanceof ReactionEmoji) return emoji.id;
     if (emoji instanceof ApplicationEmoji) return emoji.id;
+    if (emoji instanceof DefaultReactionEmoji) return emoji.id;
     return super.resolveId(emoji);
   }
 
@@ -70,6 +73,7 @@ class BaseGuildEmojiManager extends CachedManager {
     if (emojiResolvable) return emojiResolvable.identifier;
     if (emoji instanceof ReactionEmoji) return emoji.identifier;
     if (emoji instanceof ApplicationEmoji) return emoji.identifier;
+    if (emoji instanceof DefaultReactionEmoji) return emoji.identifier;
     if (typeof emoji === 'string') {
       const res = parseEmoji(emoji);
       if (res?.name.length) {
