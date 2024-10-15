@@ -7,6 +7,7 @@ const { transformAPIGuildForumTag, transformAPIGuildDefaultReaction } = require(
 
 /**
  * @typedef {Object} GuildForumTagEmoji
+ * @property {?boolean} animated Whether or not the emoji is animated
  * @property {?Snowflake} id The id of a guild's custom emoji
  * @property {?string} name The unicode character of the emoji
  */
@@ -31,6 +32,7 @@ const { transformAPIGuildForumTag, transformAPIGuildDefaultReaction } = require(
 
 /**
  * @typedef {Object} DefaultReactionEmoji
+ * @property {?boolean} animated Whether or not the emoji is animated
  * @property {?Snowflake} id The id of a guild's custom emoji
  * @property {?string} name The unicode character of the emoji
  */
